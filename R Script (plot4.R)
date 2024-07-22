@@ -1,0 +1,17 @@
+# Read the subset of data
+data <- read.csv("subset_data.csv", header = TRUE, na.strings = "?")
+
+# Convert Date and Time columns to appropriate formats if not already done
+data$DateTime <- as.POSIXct(paste(data$Date, data$Time), format="%d/%m/%Y %H:%M:%S")
+
+# Plotting
+png("plot4.png", width=480, height=480)
+
+plot(data$DateTime, data$Voltage,
+     type = "l",
+     col = "purple",
+     xlab = "Date",
+     ylab = "Voltage (volt)",
+     main = "Voltage Over Time")
+
+dev.off()
