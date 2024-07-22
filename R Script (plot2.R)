@@ -1,0 +1,17 @@
+# Read the subset of data
+data <- read.csv("subset_data.csv", header = TRUE, na.strings = "?")
+
+# Convert Date and Time columns to appropriate formats if not already done
+data$DateTime <- as.POSIXct(paste(data$Date, data$Time), format="%d/%m/%Y %H:%M:%S")
+
+# Plotting
+png("plot2.png", width=480, height=480)
+
+plot(data$DateTime, data$Global_active_power,
+     type = "l",
+     col = "red",
+     xlab = "Date",
+     ylab = "Global Active Power (kilowatt)",
+     main = "Global Active Power Over Time")
+
+dev.off()
