@@ -1,0 +1,20 @@
+# Load necessary libraries if any (not needed for base R plotting)
+
+# Read the data subset
+# Assuming you have already subset the data and saved it as a CSV file named 'subset_data.csv'
+data <- read.csv("subset_data.csv", header = TRUE, na.strings = "?")
+
+# Convert Date and Time columns to appropriate formats if not already done
+data$DateTime <- as.POSIXct(paste(data$Date, data$Time), format="%d/%m/%Y %H:%M:%S")
+
+# Plotting
+png("plot1.png", width=480, height=480)  # Start PNG device
+
+hist(data$Global_active_power, 
+     main = "Global Active Power",
+     xlab = "Global Active Power (kilowatt)",
+     ylab = "Frequency",
+     col = "blue",
+     xlim = c(0, max(data$Global_active_power)))  # Adjust xlim if needed
+
+dev.off()  # Turn off PNG device
