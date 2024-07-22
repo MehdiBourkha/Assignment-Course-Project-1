@@ -1,0 +1,25 @@
+# Read the subset of data
+data <- read.csv("subset_data.csv", header = TRUE, na.strings = "?")
+
+# Convert Date and Time columns to appropriate formats if not already done
+data$DateTime <- as.POSIXct(paste(data$Date, data$Time), format="%d/%m/%Y %H:%M:%S")
+
+# Plotting
+png("plot3.png", width=480, height=480)
+
+plot(data$DateTime, data$Sub_metering_1,
+     type = "l",
+     col = "blue",
+     xlab = "Date",
+     ylab = "Energy Sub Metering (watt-hour)",
+     main = "Energy Sub Metering Over Time")
+
+lines(data$DateTime, data$Sub_metering_2, type = "l", col = "red")
+lines(data$DateTime, data$Sub_metering_3, type = "l", col = "green")
+
+legend("topright",
+       legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"),
+       col = c("blue", "red", "green"),
+       lty = 1)
+
+dev.off()
